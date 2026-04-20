@@ -19,6 +19,8 @@ configure_logging()
 log = get_logger()
 app = FastAPI(title="Day 13 Observability Lab")
 app.add_middleware(CorrelationIdMiddleware)
+from dotenv import load_dotenv
+load_dotenv()
 agent = LabAgent()
 
 
