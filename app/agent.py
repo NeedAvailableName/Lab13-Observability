@@ -4,7 +4,7 @@ import time
 from dataclasses import dataclass
 
 from . import metrics
-from .mock_llm import FakeLLM
+from .openai_llm import OpenAILLM
 from .mock_rag import retrieve
 from .pii import hash_user_id, summarize_text
 from .tracing import langfuse_context, observe
@@ -21,9 +21,9 @@ class AgentResult:
 
 
 class LabAgent:
-    def __init__(self, model: str = "claude-sonnet-4-5") -> None:
+    def __init__(self, model: str = "gpt-4o-mini") -> None:
         self.model = model
-        self.llm = FakeLLM(model=model)
+        self.llm = OpenAILLM(model=model)
 
     @observe()
     def run(self, user_id: str, feature: str, session_id: str, message: str) -> AgentResult:
